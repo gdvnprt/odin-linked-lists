@@ -39,7 +39,7 @@ const makeLinkedList = () => {
         //removes the node at the given index.
     };
 
-    return {list, append, prepend, size, head, tail, atIndex, pop, containsValue, findValue, toString}
+    return {list, append, prepend, size, head, tail, atIndex, pop, containsValue, findValue, toString, insertAt, removetAt}
 }
 
 //Node factory
