@@ -55,10 +55,10 @@ const makeLinkedList = () => {
 
     const pop = () => {
         let pointer = HEAD;
-        while (pointer.nextNode !== null) {
+        while (pointer.nextNode.nextNode !== null) {
             pointer = pointer.nextNode
         }
-        pointer = null;
+        pointer.nextNode = null;
         length--;
     };
 
