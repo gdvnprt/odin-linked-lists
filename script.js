@@ -50,7 +50,7 @@ const makeLinkedList = () => {
         for (let i = 0; i < index; i++) {
             pointer = pointer.nextNode;
         };
-        return pointer.nextNode;
+        return pointer.value;
     };
 
     const pop = () => {
@@ -58,14 +58,14 @@ const makeLinkedList = () => {
         while (pointer.nextNode !== null) {
             pointer = pointer.nextNode
         }
-        pointer.nextNode = null;
+        pointer = null;
         length--;
     };
 
     const containsValue = (val) => {
         //returns true if the passed in value is in the list and otherwise returns false.
         let pointer = HEAD;
-        while (pointer.nextNode !== null || pointer.value !== val){
+        while (pointer.nextNode !== null && pointer.value !== val){
             pointer = pointer.nextNode
         }
         if (pointer.nextNode === null && pointer.value !== val) {
@@ -79,7 +79,7 @@ const makeLinkedList = () => {
         //returns the index of the node containing value, or null if not found.
         let pointer = HEAD;
         let counter = 0;
-        while (pointer.nextNode !== null || pointer.value !== val){
+        while (pointer.nextNode !== null && pointer.value !== val){
             pointer = pointer.nextNode
             counter ++;
         }
@@ -93,13 +93,13 @@ const makeLinkedList = () => {
     const toString = () => {
         //represents your LinkedList objects as strings, so you can print them out and preview them in the console.
         //The format should be: ( value ) -> ( value ) -> ( value ) -> null
-        let string = "(" + HEAD.value;
+        let string = "( " + HEAD.value;
         let pointer = HEAD;
         while (pointer.nextNode !== null) {
             pointer = pointer.nextNode
-            string = string.concat(") -> (", pointer.value);
+            string = string.concat(" ) -> ( ", pointer.value);
         }
-        string = string + ") -> null";
+        string = string + " ) -> null";
         return string;
     };
 
@@ -107,7 +107,7 @@ const makeLinkedList = () => {
         //inserts a new node with the provided value at the given index.
         //pass pointer through linked list to input index value
         let pointer = HEAD;
-        for (let i = 0; i < index; i++) {
+        for (let i = 0; i < index - 1; i++) {
             pointer = pointer.nextNode;
         };
         //designate what the next node is in a variable
@@ -124,7 +124,7 @@ const makeLinkedList = () => {
         //removes the node at the given index.
         //pass pointer through linked list to input index value
         let pointer = HEAD;
-        for (let i = 0; i < index; i++) {
+        for (let i = 0; i < index - 1; i++) {
             pointer = pointer.nextNode;
         };
         pointer.nextNode = pointer.nextNode.nextNode;
