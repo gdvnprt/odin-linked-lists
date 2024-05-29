@@ -18,7 +18,7 @@ const makeLinkedList = () => {
         };
     };
 
-    const prepend = (b) => {
+    const prepend = (val) => {
         const newNode = makeNode(val);
         length++;
         if (HEAD === null) {
@@ -42,7 +42,7 @@ const makeLinkedList = () => {
         while (pointer.nextNode !== null) {
             pointer = pointer.nextNode
         }
-        return pointer.nextNode;
+        return pointer;
     };
 
     const atIndex = (index) => {
@@ -59,31 +59,76 @@ const makeLinkedList = () => {
             pointer = pointer.nextNode
         }
         pointer.nextNode = null;
+        length--;
     };
 
     const containsValue = (val) => {
         //returns true if the passed in value is in the list and otherwise returns false.
-        
+        let pointer = HEAD;
+        while (pointer.nextNode !== null || pointer.value !== val){
+            pointer = pointer.nextNode
+        }
+        if (pointer.nextNode === null && pointer.value !== val) {
+            return false;
+        } else {
+            return true;
+        };
     };
 
     const findValue = (val) => {
         //returns the index of the node containing value, or null if not found.
-        
+        let pointer = HEAD;
+        let counter = 0;
+        while (pointer.nextNode !== null || pointer.value !== val){
+            pointer = pointer.nextNode
+            counter ++;
+        }
+        if (pointer.nextNode === null && pointer.value !== val) {
+            return null;
+        } else {
+            return counter;
+        };
     };
 
     const toString = () => {
         //represents your LinkedList objects as strings, so you can print them out and preview them in the console.
         //The format should be: ( value ) -> ( value ) -> ( value ) -> null
+        let string = "(" + HEAD.value;
+        let pointer = HEAD;
+        while (pointer.nextNode !== null) {
+            pointer = pointer.nextNode
+            string = string.concat(") -> (", pointer.value);
+        }
+        string = string + ") -> null";
+        return string;
     };
 
-    const insertAt = (val, i) => {
+    const insertAt = (val, index) => {
         //inserts a new node with the provided value at the given index.
-        //adjust how the items point to each other
+        //pass pointer through linked list to input index value
+        let pointer = HEAD;
+        for (let i = 0; i < index; i++) {
+            pointer = pointer.nextNode;
+        };
+        //designate what the next node is in a variable
+        let newNext = pointer.nextNode
+        //make a new node that the node before that index value points to
+        //newNode.next node = designated variable of what the previous node used to point to
+        const newNode = makeNode(val);
+        newNode.nextNode = newNext;
+        pointer.nextNode = newNode
+        length++
     };
 
-    const removetAt = (i) => {
+    const removetAt = (index) => {
         //removes the node at the given index.
-        //adjust how the items point to each other
+        //pass pointer through linked list to input index value
+        let pointer = HEAD;
+        for (let i = 0; i < index; i++) {
+            pointer = pointer.nextNode;
+        };
+        pointer.nextNode = pointer.nextNode.nextNode;
+        length--;
     };
 
     return {append, prepend, size, head, tail, atIndex, pop, containsValue, findValue, toString, insertAt, removetAt}
