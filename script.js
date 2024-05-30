@@ -112,10 +112,7 @@ const makeLinkedList = () => {
     const insertAt = (val, index) => {
         //inserts a new node with the provided value at the given index.
         //pass pointer through linked list to input index value
-        let pointer = HEAD;
-        if (index === 0) {
-            pointer = HEAD;
-        } else if (index > length - 1) {
+        if (index > length - 1) {
             return null
         } else {
             for (let i = 0; i < index - 1; i++) {
@@ -123,13 +120,20 @@ const makeLinkedList = () => {
             };
         };
         //designate what the next node is in a variable
-        let newNext = pointer.nextNode
         //make a new node that the node before that index value points to
         //newNode.next node = designated variable of what the previous node used to point to
-        const newNode = makeNode(val);
-        newNode.nextNode = newNext;
-        pointer.nextNode = newNode
-        length++
+        if (index === 0) {
+            const newNode = makeNode(val);
+            newNode.nextNode = HEAD;
+            HEAD = newNode;
+            length++;
+        } else {
+            let newNext = pointer.nextNode;
+            const newNode = makeNode(val);
+            newNode.nextNode = newNext;
+            pointer.nextNode = newNode;
+            length++;
+        };
     };
 
     const removetAt = (index) => {
@@ -137,7 +141,7 @@ const makeLinkedList = () => {
         //pass pointer through linked list to input index value
         let pointer = HEAD;
         if (index === 0) {
-            HEAD.nextNode = HEAD.nextNode.nextNode;
+            HEAD = HEAD.nextNode;
         } else if (index > length - 1) {
             return null;
         } else {
