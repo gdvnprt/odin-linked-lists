@@ -47,16 +47,22 @@ const makeLinkedList = () => {
 
     const atIndex = (index) => {
         let pointer = HEAD;
-        for (let i = 0; i < index; i++) {
-            pointer = pointer.nextNode;
+        if (index === 0) {
+            return HEAD;
+        } else if (index > length - 1) {
+            return null;
+        } else {
+            for (let i = 0; i < index; i++) {
+                pointer = pointer.nextNode;
+            };
+            return pointer.value;
         };
-        return pointer.value;
     };
 
     const pop = () => {
         let pointer = HEAD;
         while (pointer.nextNode.nextNode !== null) {
-            pointer = pointer.nextNode
+            pointer = pointer.nextNode;
         }
         pointer.nextNode = null;
         length--;
@@ -107,8 +113,14 @@ const makeLinkedList = () => {
         //inserts a new node with the provided value at the given index.
         //pass pointer through linked list to input index value
         let pointer = HEAD;
-        for (let i = 0; i < index - 1; i++) {
-            pointer = pointer.nextNode;
+        if (index === 0) {
+            pointer = HEAD;
+        } else if (index > length - 1) {
+            return null
+        } else {
+            for (let i = 0; i < index - 1; i++) {
+                pointer = pointer.nextNode;
+            };
         };
         //designate what the next node is in a variable
         let newNext = pointer.nextNode
@@ -124,8 +136,14 @@ const makeLinkedList = () => {
         //removes the node at the given index.
         //pass pointer through linked list to input index value
         let pointer = HEAD;
-        for (let i = 0; i < index - 1; i++) {
-            pointer = pointer.nextNode;
+        if (index === 0) {
+            HEAD.nextNode = HEAD.nextNode.nextNode;
+        } else if (index > length - 1) {
+            return null;
+        } else {
+            for (let i = 0; i < index - 1; i++) {
+                pointer = pointer.nextNode;
+            };
         };
         pointer.nextNode = pointer.nextNode.nextNode;
         length--;
